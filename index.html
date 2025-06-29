@@ -1,0 +1,546 @@
+<html lang="th">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TP Shop ระบบรันคิว พร้อมวันที่และลิ้งค์คนที่ 5
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Kanit', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+      color: #f8fafc;
+    }
+    /* Animated gradient text for header */
+    .animated-gradient-text {
+      background: linear-gradient(270deg, #3b82f6, #0ea5e9, #2563eb, #3b82f6);
+      background-size: 800% 800%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 10s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    /* Table header background */
+    thead tr.bg-blue-900 th {
+      background-color: #0c4a6e;
+    }
+    /* Scrollbar styling for overflow */
+    ::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e40af;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 4px;
+    }
+    /* Button hover animation */
+    .btn-animated {
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s ease;
+    }
+    .btn-animated::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #2563eb;
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    .btn-animated:hover::before {
+      left: 0;
+    }
+    .btn-animated:hover {
+      color: #e0e7ff;
+    }
+    /* Input and select focus glow */
+    input:focus,
+    select:focus {
+      box-shadow: 0 0 8px #3b82f6;
+      border-color: #3b82f6;
+      outline: none;
+    }
+    /* Link colors by status */
+    a.status-customer {
+      color: #22c55e; /* green-500 */
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+    a.status-customer:hover {
+      color: #16a34a; /* green-600 */
+      text-decoration: underline;
+    }
+    a.status-compensate {
+      color: #facc15; /* yellow-400 */
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+    a.status-compensate:hover {
+      color: #ca8a04; /* yellow-600 */
+      text-decoration: underline;
+    }
+    a.status-none {
+      color: #cbd5e1; /* slate-300 */
+      font-weight: 500;
+      cursor: default;
+      text-decoration: none;
+    }
+    /* Footer style */
+    footer {
+      background-color: #0c4a6e;
+      color: #e0e7ff;
+      font-weight: 600;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      table {
+        font-size: 0.7rem;
+      }
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .truncate-max {
+        max-width: 7rem !important;
+      }
+    }
+  </style>
+ </head>
+ <body class="flex flex-col min-h-screen">
+  <header class="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 p-5 shadow-lg flex items-center justify-between">
+   <div class="flex items-center space-x-3">
+    <img alt="โลโก้ร้าน TP Shop สีน้ำเงินเข้ม ตัวอักษร TP สีขาว" class="w-12 h-12 rounded-md shadow-md animate-pulse" height="48" src="https://storage.googleapis.com/a1aa/image/39f7e831-a6f2-4703-345a-beb809351e35.jpg" width="48"/>
+    <h1 class="text-white text-3xl font-extrabold animated-gradient-text select-none">
+     TP Shop ระบบรันคิว
+    </h1>
+   </div>
+   <nav class="hidden md:flex space-x-6 text-blue-200 font-semibold select-none">
+    <a class="hover:text-white transition" href="#queue">
+     รันคิว
+    </a>
+    <a class="hover:text-white transition" href="#form">
+     เพิ่ม/แก้ไข
+    </a>
+    <a class="hover:text-white transition flex items-center space-x-1" href="https://tp-shop.example.com" rel="noopener" target="_blank">
+     <i class="fas fa-store">
+     </i>
+     <span>
+      ร้าน TP Shop
+     </span>
+    </a>
+   </nav>
+  </header>
+  <main class="flex-grow container mx-auto p-6 max-w-6xl" id="queue">
+   <section>
+    <h2 class="text-2xl font-bold mb-6 text-center text-white drop-shadow-lg select-none">
+     เลือกวันที่และเวลารันคิว (06:00 - 23:00)
+    </h2>
+    <div class="flex justify-center mb-6">
+     <input aria-label="เลือกวันที่" class="rounded-md border border-blue-500 bg-blue-800 text-white px-4 py-2 focus:ring-4 focus:ring-blue-400 focus:outline-none transition max-w-xs" id="datePicker" type="date"/>
+    </div>
+    <div class="overflow-x-auto rounded-lg shadow-lg border border-blue-700 bg-gradient-to-b from-blue-800 to-blue-900">
+     <table class="w-full text-center text-white">
+      <thead class="bg-blue-900">
+       <tr>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         เวลา
+        </th>
+        <th class="border border-blue-700 px-3 py-2" colspan="5">
+         ลิ้งค์และสถานะ
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         รายได้ (บาท)
+        </th>
+       </tr>
+       <tr class="bg-blue-800">
+        <th>
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         คนที่ 1
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         คนที่ 2
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         คนที่ 3
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         คนที่ 4
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         คนที่ 5
+        </th>
+        <th class="border border-blue-700 px-3 py-2 select-none">
+         รวม
+        </th>
+       </tr>
+      </thead>
+      <tbody class="text-sm select-text" id="queueTableBody">
+      </tbody>
+      <tfoot>
+       <tr class="bg-blue-900 font-bold text-white select-none">
+        <td class="border border-blue-700 px-3 py-2 text-right" colspan="6">
+         รวมรายได้ทั้งหมด (บาท)
+        </td>
+        <td class="border border-blue-700 px-3 py-2 text-center" id="totalIncomeCell">
+         0
+        </td>
+       </tr>
+      </tfoot>
+     </table>
+    </div>
+   </section>
+   <section class="mt-12 max-w-4xl mx-auto bg-gradient-to-tr from-blue-900 to-blue-700 p-8 rounded-xl shadow-xl border border-blue-600" id="form">
+    <h3 class="text-xl font-extrabold mb-6 text-center text-white drop-shadow-md select-none">
+     เพิ่ม/แก้ไขลิ้งค์และสถานะ
+    </h3>
+    <form class="space-y-6" id="queueForm" novalidate="">
+     <div>
+      <label class="block text-white font-semibold mb-2 select-none" for="dateSelect">
+       เลือกวันที่
+      </label>
+      <input aria-required="true" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-4 py-2 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="dateSelect" required="" type="date"/>
+     </div>
+     <div>
+      <label class="block text-white font-semibold mb-2 select-none" for="timeSelect">
+       เลือกเวลา
+      </label>
+      <select aria-required="true" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-4 py-2 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="timeSelect" required="">
+      </select>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+       <label class="block text-white font-semibold mb-1 select-none" for="link1">
+        ลิ้งค์ คนที่ 1
+       </label>
+       <input autocomplete="off" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-2 placeholder-blue-300 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="link1" placeholder="https://example.com" type="url"/>
+       <select class="w-full mt-2 rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-1 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="status1">
+        <option class="text-black" value="">
+         สถานะ
+        </option>
+        <option class="text-green-700 font-semibold" value="customer">
+         ลูกค้า
+        </option>
+        <option class="text-yellow-600 font-semibold" value="compensate">
+         ชดเชย
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-white font-semibold mb-1 select-none" for="link2">
+        ลิ้งค์ คนที่ 2
+       </label>
+       <input autocomplete="off" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-2 placeholder-blue-300 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="link2" placeholder="https://example.com" type="url"/>
+       <select class="w-full mt-2 rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-1 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="status2">
+        <option class="text-black" value="">
+         สถานะ
+        </option>
+        <option class="text-green-700 font-semibold" value="customer">
+         ลูกค้า
+        </option>
+        <option class="text-yellow-600 font-semibold" value="compensate">
+         ชดเชย
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-white font-semibold mb-1 select-none" for="link3">
+        ลิ้งค์ คนที่ 3
+       </label>
+       <input autocomplete="off" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-2 placeholder-blue-300 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="link3" placeholder="https://example.com" type="url"/>
+       <select class="w-full mt-2 rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-1 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="status3">
+        <option class="text-black" value="">
+         สถานะ
+        </option>
+        <option class="text-green-700 font-semibold" value="customer">
+         ลูกค้า
+        </option>
+        <option class="text-yellow-600 font-semibold" value="compensate">
+         ชดเชย
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-white font-semibold mb-1 select-none" for="link4">
+        ลิ้งค์ คนที่ 4
+       </label>
+       <input autocomplete="off" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-2 placeholder-blue-300 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="link4" placeholder="https://example.com" type="url"/>
+       <select class="w-full mt-2 rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-1 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="status4">
+        <option class="text-black" value="">
+         สถานะ
+        </option>
+        <option class="text-green-700 font-semibold" value="customer">
+         ลูกค้า
+        </option>
+        <option class="text-yellow-600 font-semibold" value="compensate">
+         ชดเชย
+        </option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-white font-semibold mb-1 select-none" for="link5">
+        ลิ้งค์ คนที่ 5
+       </label>
+       <input autocomplete="off" class="w-full rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-2 placeholder-blue-300 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="link5" placeholder="https://example.com" type="url"/>
+       <select class="w-full mt-2 rounded-md border border-blue-500 bg-blue-800 text-white px-3 py-1 focus:ring-4 focus:ring-blue-400 focus:outline-none transition" id="status5">
+        <option class="text-black" value="">
+         สถานะ
+        </option>
+        <option class="text-green-700 font-semibold" value="customer">
+         ลูกค้า
+        </option>
+        <option class="text-yellow-600 font-semibold" value="compensate">
+         ชดเชย
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="text-center">
+      <button class="btn-animated bg-blue-700 px-8 py-3 rounded-lg text-white font-bold shadow-lg hover:shadow-xl focus:ring-4 focus:ring-blue-400 transition" type="submit">
+       บันทึกข้อมูล
+      </button>
+     </div>
+    </form>
+   </section>
+  </main>
+  <footer class="p-4 text-center select-none">
+   © 2024 TP Shop ระบบรันคิว
+  </footer>
+  <script>
+   // Generate time slots from 06:00 to 23:00 (1 hour interval)
+    const startHour = 6;
+    const endHour = 23;
+    const timeSelect = document.getElementById('timeSelect');
+    const queueTableBody = document.getElementById('queueTableBody');
+    const datePicker = document.getElementById('datePicker');
+    const dateSelect = document.getElementById('dateSelect');
+    const totalIncomeCell = document.getElementById('totalIncomeCell');
+
+    // Data structure to hold queue info
+    // Format: { "YYYY-MM-DD": { "06:00": [{link, status}, ...5], ... } }
+    let queueData = {};
+
+    function padZero(num) {
+      return num < 10 ? '0' + num : num;
+    }
+
+    function formatTime(hour) {
+      return padZero(hour) + ':00';
+    }
+
+    function createEmptyEntry() {
+      return { link: '', status: '' };
+    }
+
+    // Initialize time slots for a given date if not exist
+    function initDateData(date) {
+      if (!queueData[date]) {
+        queueData[date] = {};
+        for (let h = startHour; h <= endHour; h++) {
+          queueData[date][formatTime(h)] = [
+            createEmptyEntry(),
+            createEmptyEntry(),
+            createEmptyEntry(),
+            createEmptyEntry(),
+            createEmptyEntry(),
+          ];
+        }
+      }
+    }
+
+    // Load saved data from localStorage if any
+    const savedData = localStorage.getItem('queueData');
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        if (typeof parsed === 'object' && parsed !== null) {
+          queueData = parsed;
+        }
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+
+    // Populate time select dropdown
+    function populateTimeSelect() {
+      timeSelect.innerHTML = '';
+      for (let h = startHour; h <= endHour; h++) {
+        const option = document.createElement('option');
+        option.value = formatTime(h);
+        option.textContent = formatTime(h);
+        timeSelect.appendChild(option);
+      }
+    }
+
+    // Calculate income per person based on status
+    // ลูกค้า = 10 บาท, ชดเชย = 0 บาท, no status or empty = 0 บาท
+    function calculateIncome(entry) {
+      if (entry.status === 'customer') {
+        return 10;
+      }
+      return 0;
+    }
+
+    // Render the queue table rows for selected date
+    function renderTable(date) {
+      queueTableBody.innerHTML = '';
+      if (!date) {
+        totalIncomeCell.textContent = '0';
+        return;
+      }
+      initDateData(date);
+      let grandTotalIncome = 0;
+      for (let h = startHour; h <= endHour; h++) {
+        const time = formatTime(h);
+        const row = document.createElement('tr');
+        row.classList.add('hover:bg-blue-700', 'transition-colors', 'duration-300');
+
+        // Time cell
+        const timeCell = document.createElement('td');
+        timeCell.className = 'border border-blue-700 px-3 py-2 font-semibold select-none';
+        timeCell.textContent = time;
+        row.appendChild(timeCell);
+
+        // 5 people cells
+        let totalIncome = 0;
+        queueData[date][time].forEach((entry) => {
+          const cell = document.createElement('td');
+          cell.className = 'border border-blue-700 px-3 py-2 truncate max-w-[12rem]';
+
+          if (entry.link) {
+            const a = document.createElement('a');
+            a.href = entry.link;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = 'inline-block truncate';
+
+            // Color by status
+            if (entry.status === 'customer') {
+              a.classList.add('status-customer');
+            } else if (entry.status === 'compensate') {
+              a.classList.add('status-compensate');
+            } else {
+              a.classList.add('status-none');
+            }
+
+            a.textContent = entry.link;
+            cell.appendChild(a);
+          } else {
+            cell.textContent = '-';
+            cell.classList.add('text-blue-300', 'select-none');
+          }
+
+          row.appendChild(cell);
+
+          totalIncome += calculateIncome(entry);
+        });
+
+        // Income total cell
+        const incomeCell = document.createElement('td');
+        incomeCell.className = 'border border-blue-700 px-3 py-2 font-semibold select-none';
+        incomeCell.textContent = totalIncome.toString();
+        row.appendChild(incomeCell);
+
+        queueTableBody.appendChild(row);
+
+        grandTotalIncome += totalIncome;
+      }
+      totalIncomeCell.textContent = grandTotalIncome.toString();
+    }
+
+    // Fill form inputs when date or time changes
+    function fillForm(date, time) {
+      if (!date || !time) return;
+      initDateData(date);
+      const entries = queueData[date][time];
+      for (let i = 0; i < 5; i++) {
+        document.getElementById('link' + (i + 1)).value = entries[i].link;
+        document.getElementById('status' + (i + 1)).value = entries[i].status;
+      }
+    }
+
+    // Set default date to today in inputs
+    function setTodayDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = padZero(today.getMonth() + 1);
+      const dd = padZero(today.getDate());
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+      datePicker.value = todayStr;
+      dateSelect.value = todayStr;
+      return todayStr;
+    }
+
+    // Sync date inputs (datePicker and dateSelect)
+    function syncDateInputs(fromInput) {
+      if (fromInput === datePicker) {
+        dateSelect.value = datePicker.value;
+      } else {
+        datePicker.value = dateSelect.value;
+      }
+    }
+
+    // Event listeners
+    datePicker.addEventListener('change', () => {
+      syncDateInputs(datePicker);
+      renderTable(datePicker.value);
+      fillForm(datePicker.value, timeSelect.value);
+    });
+
+    dateSelect.addEventListener('change', () => {
+      syncDateInputs(dateSelect);
+      fillForm(dateSelect.value, timeSelect.value);
+    });
+
+    timeSelect.addEventListener('change', () => {
+      fillForm(dateSelect.value, timeSelect.value);
+    });
+
+    document.getElementById('queueForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selectedDate = dateSelect.value;
+      const selectedTime = timeSelect.value;
+      if (!selectedDate || !selectedTime) {
+        alert('กรุณาเลือกวันที่และเวลา');
+        return;
+      }
+      initDateData(selectedDate);
+      for (let i = 0; i < 5; i++) {
+        const link = document.getElementById('link' + (i + 1)).value.trim();
+        const status = document.getElementById('status' + (i + 1)).value;
+        queueData[selectedDate][selectedTime][i] = { link, status };
+      }
+      localStorage.setItem('queueData', JSON.stringify(queueData));
+      renderTable(selectedDate);
+      alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+    });
+
+    // Initial setup
+    populateTimeSelect();
+    const todayStr = setTodayDate();
+    timeSelect.value = formatTime(startHour);
+    renderTable(todayStr);
+    fillForm(todayStr, timeSelect.value);
+  </script>
+ </body>
+</html>
